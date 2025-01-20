@@ -16,7 +16,7 @@ const Header = ({
   const isDetailUrl = location.pathname.startsWith("/country/");
 
   return (
-    <div className={isDarkMode ? "dark" : ""}>
+    <div className=   {`${isDarkMode ? "dark" : ""} `}    >
       <header className="flex justify-between items-center h-20 w-full shadow-md font-sans px-4">
         <div className="heading ml-3">
           <h3 className="text-lg sm:text-xl md-2xl lg-3xl font-bold">
@@ -35,7 +35,9 @@ const Header = ({
       </header>
 
       {!isDetailUrl && (
-        <section className="search-and-region flex justify-between items-center h-28 relative ml-5 mr-5">
+        <div className="search-and-region flex justify-center">
+
+        <section className="search-and-region flex flex-col md:flex-row justify-between w-[80%] items-center h-28 relative ml-5 mr-5">
           {/* Search Input */}
           <div className="relative search">
             <FaSearch className="absolute bg-transparent mt-3 ml-2 text-gray-400 text-base" />
@@ -44,14 +46,14 @@ const Header = ({
               onChange={handleInput}
               id="search"
               placeholder="Search for a country"
-              className={`w-100 h-10 px-3 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-40 h-10 px-3 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"
               }`}
             />
           </div>
 
           {/* Sort by Population */}
-          <div className="sort-ascending">
+          {/* <div className="sort-ascending">
             <select
               onChange={handleSort}
               className={`w-100 h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
@@ -62,31 +64,27 @@ const Header = ({
               <option value="asc">Population: Low to High</option>
               <option value="dsc">Population: High to Low</option>
             </select>
-          </div>
+          </div> */}
 
           {/* Filter by Region */}
           <div className="filter-region">
-            <input
-              type="text"
-              placeholder="Filter by region"
-              id="region"
-              list="regions"
+            <select
+              
               onChange={handleRegion}
-              className={`h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-100 h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"
               }`}
-            />
-
-            <datalist id="regions">
-              <option value="Africa"></option>
-              <option value="Americas"></option>
-              <option value="Asia"></option>
-              <option value="Europe"></option>
-            </datalist>
+            >
+              <option value = "">Filter by Region</option>
+              <option value="Africa">Africa</option>
+              <option value="Americas">Americas</option>
+              <option value="Asia">Asia</option>
+              <option value="Europe">Europe</option>
+              </select>
           </div>
 
           {/* Filter by Subregion */}
-          <div className="filter-subregion">
+          {/* <div className="filter-subregion">
             <select
               onChange={handleSubregion}
               className={`h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
@@ -101,8 +99,9 @@ const Header = ({
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
         </section>
+        </div>
       )}
     </div>
   );
