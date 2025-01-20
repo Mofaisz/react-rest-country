@@ -3,7 +3,8 @@ import Card from "./Card";
 import Header from "./Header";
 
 const CountriesListing = () => {
-  const [jobs, setJobs] = useState([]);
+  // const [jobs, setJobs] = useState([]);
+  const [countries,setCountry] = useState([])
   const [search, setSearch] = useState("");
   const [searchRegion, setRegion] = useState("");
   const [sortPopulation, setSortPopulation] = useState("");
@@ -13,14 +14,14 @@ const CountriesListing = () => {
 
   // Fetch countries data
   useEffect(() => {
-    const fetchJobs = async () => {
+    const fetchCountries = async () => {
       try {
         const res = await fetch("https://restcountries.com/v3.1/all");
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data = await res.json();
-        setJobs(data);
+        setCountry(data);
 
         // Extract regions from the fetched data
         const uniqueRegions = Array.from(new Set(data.map((country) => country.region)));
@@ -30,7 +31,7 @@ const CountriesListing = () => {
       }
     };
 
-    fetchJobs();
+    fetchCountries();
   }, []);
 
   // Handle sorting by population
@@ -61,12 +62,12 @@ const CountriesListing = () => {
   };
 
   // Filtered jobs based on search input, region, and subregion
-  const filteredJobs = jobs
-    .filter((job) => {
+  const filteredCountries = countries
+    .filter((country) => {
       return (
-        job.name.common.toLowerCase().includes(search.toLowerCase()) &&
-        (searchRegion === "" || job.region.toLowerCase() === searchRegion.toLowerCase()) &&
-        (subregion === "" || job.subregion.toLowerCase() === subregion.toLowerCase())
+        country.name.common.toLowerCase().includes(search.toLowerCase()) &&
+        (searchRegion === "" || country.region.toLowerCase() === searchRegion.toLowerCase()) &&
+        (subregion === "" || country.subregion.toLowerCase() === subregion.toLowerCase())
       );
     })
     .sort((a, b) => {
@@ -91,8 +92,8 @@ const CountriesListing = () => {
         subregions={subregions}  // Pass subregions to Header
       />
       <div className="flex flex-wrap gap-1 justify-center">
-        {filteredJobs.map((job, index) => (
-          <Card key={index} job={job} />
+        {filteredCountries.map((country, index) => (
+          <Card key={index} country={country} />
         ))}
       </div>
     </>
